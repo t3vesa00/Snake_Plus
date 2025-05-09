@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snake Plus – Päävalikko</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>🐍 Snake Plus</h1>
+    <form id="startForm">
+      <label for="playerName">Nimi:</label>
+      <input type="text" id="playerName" required />
+      <label for="difficulty">Vaikeustaso:</label>
+      <select id="difficulty">
+        <option value="easy">Helppo</option>
+        <option value="normal" selected>Normaali</option>
+        <option value="hard">Vaikea</option>
+      </select>
+      <button type="submit">Aloita peli</button>
+    </form>
+    <a href="highscores.html">Katso tulostaulu</a>
+  </div>
+  <script>
+    document.getElementById('startForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('playerName').value;
+      const difficulty = document.getElementById('difficulty').value;
+      localStorage.setItem('snakePlayerName', name);
+      localStorage.setItem('snakeDifficulty', difficulty);
+      window.location.href = 'game.html';
+    });
+  </script>
+</body>
+</html>
