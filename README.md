@@ -1,4 +1,4 @@
-# 🐍 Snake Plus – Matopeli
+# 🐍 Super Mato – Matopeli
 
 **Harjoitustyö, Web-sovellusten perusteet — Oulun ammattikorkeakoulu, kevät 2025**
 
@@ -6,7 +6,7 @@
 
 ## 📌 Kuvaus
 
-**Snake Plus** on selainpohjainen matopeli, joka on toteutettu HTML:n, CSS:n ja JavaScriptin avulla. Pelaaja ohjaa matoa nuolinäppäimillä, kerää pisteitä syömällä hedelmiä ja väistelee esteitä. Peli sisältää kolme vaikeustasoa, bonusherkkuja, esteitä sekä ääniä, ja tallentaa ennätyspisteet nimellä paikallisesti selaimen `localStorageen`.
+**Super Mato** on selainpohjainen matopeli, joka on toteutettu HTML:n, CSS:n ja JavaScriptin avulla. Pelaaja ohjaa matoa nuolinäppäimillä, kerää pisteitä syömällä hedelmiä ja väistelee esteitä. Peli sisältää kolme vaikeustasoa, bonusherkkuja, esteitä sekä ääniä, ja tallentaa ennätyspisteet nimellä paikallisesti selaimen `localStorageen`.
 
 ---
 
