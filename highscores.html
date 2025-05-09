@@ -9,15 +9,42 @@
 <body>
   <div class="container">
     <h1>🏆 Tulostaulu</h1>
-    <ul id="highscoresList"></ul>
+    <table id="highscores">
+      <thead>
+        <tr>
+          <th>Sija</th>
+          <th>Nimi</th>
+          <th>Pisteet</th>
+          <th>Vaikeustaso</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
     <a href="index.html">Takaisin valikkoon</a>
   </div>
   <script src="storage.js"></script>
   <script>
     const scores = JSON.parse(localStorage.getItem('snakeHighscores')) || [];
-    const list = document.getElementById('highscoresList');
+    const tbody = document.querySelector('#highscores tbody');
     scores.sort((a, b) => b.score - a.score);
-    list.innerHTML = scores.map(s => `<li>${s.name}: ${s.score} pistettä</li>`).join('');
+    
+    const difficultyInFinnish = {
+        'easy': 'Helppo',
+        'normal': 'Normaali',
+        'hard': 'Vaikea'
+    };
+    
+    tbody.innerHTML = scores
+      .slice(0, 10)
+      .map((score, index) => `
+          <tr>
+              <td>${index + 1}</td>
+              <td>${score.name}</td>
+              <td>${score.score}</td>
+              <td>${difficultyInFinnish[score.difficulty] || score.difficulty}</td>
+          </tr>
+      `).join('');
   </script>
 </body>
 </html>

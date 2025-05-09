@@ -57,7 +57,7 @@ Projektin tarkoituksena on demonstroida web-sovelluksen rakentamista käyttäen 
 - **bonus.mp3** – Bonusherkku
 - **gameover.mp3** – Peli ohi
 
-Huom: varmista, että selaimesi sallii äänten toiston ja että `sounds/`-kansio on mukana projektissa.
+Huom: varmista, että selaimesi sallii äänten toiston.
 
 ---
 

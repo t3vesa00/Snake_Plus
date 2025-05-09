@@ -9,24 +9,44 @@ let bonus = null;
 let obstacles = generateObstacles(5);
 let score = 0;
 let interval;
-let playerName = localStorage.getItem("snakePlayerName") || "Tuntematon";
-let difficulty = localStorage.getItem("snakeDifficulty") || "normal";
-let speed = { easy: 200, normal: 120, hard: 80 }[difficulty];
+let soundInitialized = false;
 
-// Äänet
+const playerName = localStorage.getItem("snakePlayerName") || "Tuntematon";
+const difficulty = localStorage.getItem("snakeDifficulty") || "normal";
+const speed = { easy: 200, normal: 120, hard: 80 }[difficulty];
+
+// 🎧 Äänitehosteet
 const eatSound = new Audio("sounds/eat.mp3");
 const bonusSound = new Audio("sounds/bonus.mp3");
 const gameOverSound = new Audio("sounds/gameover.mp3");
 
+// Äänien lataus ja testaus
+function initSounds() {
+    const sounds = [eatSound, bonusSound, gameOverSound];
+    sounds.forEach(sound => {
+        sound.load();
+        sound.volume = 0.3;  // Säädä äänenvoimakkuutta (0.0 - 1.0)
+    });
+}
+
 document.getElementById("playerInfo").textContent = `Pelaaja: ${playerName}`;
 document.addEventListener("keydown", changeDirection);
+
+// Käynnistä pelisilmukka
 interval = setInterval(gameLoop, speed);
-setInterval(() => bonus = Math.random() < 0.5 ? getRandomPosition() : null, 5000);
+
+// Ajoittainen bonushedelmä
+setInterval(() => {
+  bonus = Math.random() < 0.5 ? getRandomPosition() : null;
+}, 5000);
 
 function gameLoop() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
   if (isCollision(head)) return endGame();
+
   snake.unshift(head);
+
   if (head.x === food.x && head.y === food.y) {
     score++;
     eatSound.play();
@@ -40,6 +60,7 @@ function gameLoop() {
   } else {
     snake.pop();
   }
+
   draw();
 }
 
@@ -64,7 +85,7 @@ function getRandomPosition() {
 }
 
 function generateObstacles(count) {
-  let obs = [];
+  const obs = [];
   for (let i = 0; i < count; i++) obs.push(getRandomPosition());
   return obs;
 }
@@ -79,6 +100,12 @@ function isCollision(pos) {
 }
 
 function changeDirection(e) {
+  // ⚠️ Ensimmäinen painallus poistaa autoplay-eston
+  if (!soundInitialized) {
+    initSounds();
+    soundInitialized = true;
+  }
+
   const key = e.key;
   if (key === "ArrowUp" && dy === 0) [dx, dy] = [0, -20];
   else if (key === "ArrowDown" && dy === 0) [dx, dy] = [0, 20];
@@ -89,9 +116,9 @@ function changeDirection(e) {
 function endGame() {
   clearInterval(interval);
   gameOverSound.play();
-  saveHighscore(playerName, score);
+  saveHighscore(playerName, score, difficulty); // Lisää difficulty parametri
   setTimeout(() => {
     alert(`Peli ohi! Pisteet: ${score}`);
     window.location.href = "highscores.html";
-  }, 300);
+  }, 500);
 }
